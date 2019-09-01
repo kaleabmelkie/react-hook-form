@@ -1,16 +1,16 @@
 import flatArray from './flatArray';
 import isString from './isString';
 import isObject from './isObject';
-import { DataType } from '../types';
+import { FieldValues } from '../types';
 
-const getPath = (path: string, values: DataType | string[] | string): any =>
+const getPath = (path: string, values: FieldValues | string[] | string): any =>
   Array.isArray(values)
     ? values.map((item, index) => {
         const pathWithIndex = `${path}[${index}]`;
         if (Array.isArray(item)) {
           return getPath(pathWithIndex, item);
         } else if (isObject(item)) {
-          return Object.entries(item).map(([key, objectValue]) =>
+          return Object.entries(item).map(([key, objectValue]: [string, any]) =>
             isString(objectValue)
               ? `${pathWithIndex}.${key}`
               : getPath(`${pathWithIndex}.${key}`, objectValue),
@@ -22,5 +22,5 @@ const getPath = (path: string, values: DataType | string[] | string): any =>
         isString(objectValue) ? `${path}.${key}` : getPath(path, objectValue),
       );
 
-export default (parentPath: string, value: any) =>
+export default (parentPath: string, value: FieldValues) =>
   flatArray(getPath(parentPath, value));

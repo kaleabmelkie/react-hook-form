@@ -1,5 +1,5 @@
 import isObject from './isObject';
-import { DataType } from '../types';
+import { FieldValues } from '../types';
 
 const reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/;
 const reIsPlainProp = /^\w*$/;
@@ -12,12 +12,12 @@ function isIndex(value: any) {
   return reIsUint.test(value) && value > -1;
 }
 
-export function isKey(value: any) {
+export function isKey(value: [] | string) {
   if (isArray(value)) return false;
   return reIsPlainProp.test(value) || !reIsDeepProp.test(value);
 }
 
-const stringToPath = (string: string) => {
+const stringToPath = (string: string): string[] => {
   const result: string[] = [];
   string.replace(
     rePropName,
@@ -28,7 +28,7 @@ const stringToPath = (string: string) => {
   return result;
 };
 
-export default function set(object: DataType, path: string, value: string) {
+export default function set(object: FieldValues, path: string, value: string) {
   const tempPath = isKey(path) ? [path] : stringToPath(path);
 
   let index = -1;

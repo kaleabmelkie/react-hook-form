@@ -1,24 +1,19 @@
 import isEmptyObject from '../utils/isEmptyObject';
-import { DataType } from '../types';
+import isSameError from '../utils/isSameError';
 
 export default function shouldUpdateWithError({
   errors,
   name,
   error,
-  isOnBlur,
-  isBlurType,
   isValidateDisabled,
 }: {
-  errors: DataType;
+  errors: any;
   name: string;
   error: any;
-  isOnBlur: boolean;
-  isBlurType: boolean;
   isValidateDisabled: boolean;
 }): boolean {
   if (
     isValidateDisabled ||
-    (isOnBlur && !isBlurType) ||
     (isEmptyObject(error) && isEmptyObject(errors)) ||
     (errors[name] && errors[name].isManual)
   ) {
@@ -36,7 +31,6 @@ export default function shouldUpdateWithError({
   return (
     errors[name] &&
     error[name] &&
-    (errors[name].type !== error[name].type ||
-      errors[name].message !== error[name].message)
+    !isSameError(errors[name], error[name].type, error[name].message)
   );
 }

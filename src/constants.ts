@@ -1,28 +1,9 @@
-export const DATE_INPUTS = [
-  'date',
-  'time',
-  'month',
-  'datetime',
-  'datetime-local',
-  'week',
-];
+import { ValidationMode } from './types';
 
-export const STRING_INPUTS = [
-  'text',
-  'email',
-  'password',
-  'search',
-  'tel',
-  'url',
-  'textarea',
-];
-
-export const VALIDATION_MODE: {
-  onBlur: 'onBlur';
-  onChange: 'onChange';
-  onSubmit: 'onSubmit';
-} = {
+export const VALIDATION_MODE: ValidationMode = {
   onBlur: 'onBlur',
   onChange: 'onChange',
   onSubmit: 'onSubmit',
 };
+
+export const RADIO_INPUT = 'radio';

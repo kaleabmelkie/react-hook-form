@@ -2,7 +2,7 @@ import React from 'react';
 import useForm from 'react-hook-form';
 
 const Basic: React.FC = () => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, reset } = useForm();
   const onSubmit = () => {};
 
   return (
@@ -75,17 +75,26 @@ const Basic: React.FC = () => {
       <input
         type="radio"
         name="radio"
-        ref={register({ required: true })}
+        ref={register}
         value="1"
       />
       Radio2
-      <input type="radio" name="radio" value="2" />
+      <input type="radio" name="radio" value="2" ref={register} />
       Radio3
-      <input type="radio" name="radio" value="3" />
+      <input type="radio" name="radio" value="3" ref={register({ required: true })} />
       {errors.radio && <p>radio error</p>}
       <input type="checkbox" name="checkbox" ref={register({ required: true })} />
       {errors.checkbox && <p>checkbox error</p>}
-      <button>Submit</button>
+
+      <select name="multiple" multiple ref={register({ required: true })}>
+        <option value="optionA">optionA</option>
+        <option value="optionB">optionB</option>
+      </select>
+      {errors.multiple && <p>multiple error</p>}
+
+      <button id="submit">Submit</button>
+
+      <button type="button" id="resetForm" onClick={reset}>Reset</button>
     </form>
   );
 };

@@ -1,11 +1,12 @@
 context('basic form validation', () => {
-  it('should validate the form', () => {
+  it('should validate the form and reset the form', () => {
     cy.visit('http://localhost:3000');
-    cy.get('button').click();
+    cy.get('button#submit').click();
 
     cy.get('input[name="firstName"] + p').contains('firstName error');
     cy.get('input[name="lastName"] + p').contains('lastName error');
     cy.get('select[name="selectNumber"] + p').contains('selectNumber error');
+    cy.get('select[name="multiple"] + p').contains('multiple error');
     cy.get('input[name="minRequiredLength"] + p').contains('minRequiredLength error');
     cy.get('input[name="radio"] + p').contains('radio error');
 
@@ -33,6 +34,7 @@ context('basic form validation', () => {
     cy.get('input[name="pattern"]').type('23');
     cy.get('input[name="minLength"]').type('bi');
     cy.get('input[name="minRequiredLength"]').type('bi');
+    cy.get('select[name="multiple"]').select(['optionA']);
     cy.get('input[name="radio"]').check('1');
     cy.get('input[name="min"]').clear().type('11');
     cy.get('input[name="max"]').clear().type('19');
@@ -41,5 +43,19 @@ context('basic form validation', () => {
     cy.get('input[name="checkbox"]').check();
 
     cy.get('p').should('have.length', 0);
+
+    cy.get('#resetForm').click();
+    cy.get('input[name="firstName"]').should('not.have.value');
+    cy.get('input[name="lastName"]').should('not.have.value');
+    cy.get('select[name="selectNumber"]').should('have.value', '');
+    cy.get('input[name="minRequiredLength"]').should('not.have.value');
+    cy.get('input[name="radio"]').should('not.have.value');
+    cy.get('input[name="max"]').should('not.have.value');
+    cy.get('input[name="min"]').should('not.have.value');
+    cy.get('input[name="minLength"]').should('not.have.value');
+    cy.get('input[name="checkbox"]').should('not.have.value');
+    cy.get('input[name="pattern"]').should('not.have.value');
+    cy.get('input[name="minDate"]').should('not.have.value');
+    cy.get('input[name="maxDate"]').should('not.have.value');
   });
 });

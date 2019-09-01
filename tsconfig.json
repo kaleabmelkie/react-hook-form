@@ -3,8 +3,6 @@
     "sourceMap": true,
     "module": "es2015",
     "target": "es2017",
-    //    "target": "es5",
-    //    "downlevelIteration": true,
     "moduleResolution": "node",
     "outDir": "./dist",
     "jsx": "react",
@@ -14,17 +12,11 @@
     "allowSyntheticDefaultImports": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
   "include": ["src"],
-  "exclude": ["node_modules", "test", "examples"]
+  "exclude": ["node_modules", "app", "examples", "cypress"]
 }

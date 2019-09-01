@@ -31,7 +31,7 @@ const errors = {
 };
 
 describe('parseErrorSchema', () => {
-  it('should parse the validaiton errors into react hook form errors format', () => {
+  it('should parse the validation errors into react hook form errors format', () => {
     expect(parseErrorSchema(errors)).toMatchSnapshot();
   });
 });
@@ -46,6 +46,7 @@ describe('validateWithSchema', () => {
             throw errors;
           },
         },
+        { abortEarly: false },
         {},
       ),
     ).toMatchSnapshot();
@@ -57,8 +58,12 @@ describe('validateWithSchema', () => {
         {
           validate: () => {},
         },
+        { abortEarly: false },
         {},
       ),
-    ).toEqual({});
+    ).toEqual({
+      fieldErrors: {},
+      result: undefined,
+    });
   });
 });

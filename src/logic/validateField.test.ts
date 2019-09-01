@@ -103,6 +103,11 @@ describe('validateField', () => {
         {
           test: {
             ref: 'test',
+            options: [
+              {
+                ref: 'test',
+              },
+            ],
           },
         },
       ),
@@ -110,7 +115,7 @@ describe('validateField', () => {
       test: {
         message: 'test',
         type: 'required',
-        ref: '',
+        ref: 'test',
       },
     });
   });
@@ -369,7 +374,11 @@ describe('validateField', () => {
           required: true,
           validate: value => value.toString().length > 3,
         },
-        {},
+        {
+          test: {
+            ref: {},
+          },
+        },
       ),
     ).toEqual({});
 
@@ -385,7 +394,11 @@ describe('validateField', () => {
           required: true,
           validate: value => value.toString().length < 3,
         },
-        {},
+        {
+          test: {
+            ref: {},
+          },
+        },
       ),
     ).toEqual({
       test: {
@@ -415,7 +428,11 @@ describe('validateField', () => {
             test1: value => value.toString().length > 10,
           },
         },
-        {},
+        {
+          test: {
+            ref: {},
+          },
+        },
       ),
     ).toEqual({
       test: {
@@ -442,7 +459,7 @@ describe('validateField', () => {
       await validateField(
         {
           ref: {
-            type: 'radio',
+            type: 'text',
             name: 'test',
             value: 'This is a long text input!',
             setCustomValidity,
@@ -462,11 +479,11 @@ describe('validateField', () => {
       test: {
         ref: {
           name: 'test',
-          type: 'radio',
+          type: 'text',
           value: 'This is a long text input!',
           setCustomValidity,
         },
-        type: 'test1',
+        type: 'test',
         message: '',
       },
     });
@@ -524,7 +541,11 @@ describe('validateField', () => {
             },
           },
         },
-        {},
+        {
+          test: {
+            ref: {},
+          },
+        },
       ),
     ).toEqual({
       test: {
@@ -552,7 +573,11 @@ describe('validateField', () => {
           },
           validate: value => value.toString().length < 3 || 'bill',
         },
-        {},
+        {
+          test: {
+            ref: {},
+          },
+        },
       ),
     ).toEqual({
       test: {
